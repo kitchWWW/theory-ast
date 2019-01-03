@@ -41,7 +41,7 @@ def main(prg):
 def lilyPitchFromString(noteNumber):
 	lilyNoteNames = ['c','cis','d','ees','e','f','fis','g','gis','a','bes','b']
 	pitchClass = noteNumber%12
-	numberOfTicks = int((noteNumber-48)/12)
+	numberOfTicks = int((noteNumber)/12) - 5
 	if numberOfTicks > 0:
 		return lilyNoteNames[pitchClass] + "'"*numberOfTicks
 	else:
@@ -49,8 +49,15 @@ def lilyPitchFromString(noteNumber):
 
 def outputLilyStrings(lilyStrings,model_num):
 	fd = open('out/out_'+str(model_num)+'.ly','w')
+	totalString = ["<<"]
+	for p in lilyStrings:
+		totalString.append("\\new Staff \\absolute {")
+		totalString.append(" ".join(p))
+		totalString.append("}")
+	totalString.append(">>")
+	fd.write("\n".join(totalString))
+	fd.truncate()
 	fd.close()
-
 
 def convertVoicesToLily(voices):
 	ret = []
@@ -60,7 +67,5 @@ def convertVoicesToLily(voices):
 			lyString.append(lilyPitchFromString(p)+"2")
 		ret.append(lyString)
 	return ret
-
-
 
 #end.
