@@ -1,5 +1,5 @@
-#const n = 2.
-#const voices = 4.
+#const n = 10.
+#const voices = 2.
 #const key = 0.
 
 % this rule dissalowws compositional errors

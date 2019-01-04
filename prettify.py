@@ -50,7 +50,7 @@ def lilyPitchFromString(noteNumber):
 def outputLilyStrings(lilyStrings,model_num):
 	fd = open('out/out_'+str(model_num)+'.ly','w')
 	totalString = ["<<"]
-	for p in lilyStrings:
+	for p in lilyStrings[::-1]:
 		totalString.append("\\new Staff \\absolute {")
 		totalString.append(" ".join(p))
 		totalString.append("}")
