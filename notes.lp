@@ -25,20 +25,28 @@ voices{note(X,V,I) : pitch(X), voice(V) }voices :- I=0..n.
 % inScale(X) :- pitch(X), X \ 12 == key+9.
 % inScale(X) :- pitch(X), X \ 12 == key+11.
 
-
+% harmonic consonant: intervals, at any octave displacement, in any order
 consonant(X,Y) :- pitch(X), pitch(Y), X==Y.		
 consonant(X,Y) :- pitch(X), pitch(Y), X==Y+3.
 consonant(X,Y) :- pitch(X), pitch(Y), X==Y+4.
 consonant(X,Y) :- pitch(X), pitch(Y), X==Y+7.
 consonant(X,Y) :- pitch(X), pitch(Y), X==Y+8.
 consonant(X,Y) :- pitch(X), pitch(Y), X==Y+9.
-
-
-
 consonant(X,Y) :- pitch(X), pitch(Y), pitch(Z), X == Z+12 , consonant(Z, Y).
 consonant(X,Y) :- consonant(Y,X).
 
-
+% melodic consonant: step or leap except tritone, 7ths, and <= 1 octave.
+melodic(X,Y) :- pitch(X), pitch(Y), X==Y.
+melodic(X,Y) :- pitch(X), pitch(Y), X==Y+1.
+melodic(X,Y) :- pitch(X), pitch(Y), X==Y+2.
+melodic(X,Y) :- pitch(X), pitch(Y), X==Y+3.
+melodic(X,Y) :- pitch(X), pitch(Y), X==Y+4.
+melodic(X,Y) :- pitch(X), pitch(Y), X==Y+5.
+melodic(X,Y) :- pitch(X), pitch(Y), X==Y+7.
+melodic(X,Y) :- pitch(X), pitch(Y), X==Y+8.
+melodic(X,Y) :- pitch(X), pitch(Y), X==Y+9.
+melodic(X,Y) :- pitch(X), pitch(Y), X==Y+12.
+melodic(X,Y) :- melodic(Y,X).
 
 
 % error reasons
@@ -48,7 +56,7 @@ reason(e_voice_crossing).
 reason(e_too_far_appart).
 % reason(e_not_in_scale).
 reason(e_not_consonant).
-
+reason(e_not_melodic).
 
 % error rules
 error(e_polyphonic_single_voice,I) :- note(A,V,I), note(B,V,I), A!=B, I=0..n.
@@ -64,8 +72,12 @@ error(e_not_consonant,I) :-
 	I = 0..n,
 	V1=0..voices,
 	V2=0..voices.
-
-
+error(e_not_melodic,I) :-
+	note(A,V,I),
+	note(B,V,I+1),
+	not melodic(A,B),
+	I = 0..n,
+	V = 0..voices.
 #show note/3.
 
 

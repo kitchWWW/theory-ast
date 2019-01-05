@@ -49,12 +49,12 @@ def lilyPitchFromString(noteNumber):
 
 def outputLilyStrings(lilyStrings,model_num):
 	fd = open('out/out_'+str(model_num)+'.ly','w')
-	totalString = ["<<"]
+	totalString = ["\\score { \n <<"]
 	for p in lilyStrings[::-1]:
 		totalString.append("\\new Staff \\absolute {")
 		totalString.append(" ".join(p))
 		totalString.append("}")
-	totalString.append(">>")
+	totalString.append(">>\n \\midi{{}}\n\\layout{{}}\n}")
 	fd.write("\n".join(totalString))
 	fd.truncate()
 	fd.close()
