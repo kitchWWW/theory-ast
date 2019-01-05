@@ -6,6 +6,8 @@ reason(e_repetative_notes).
 reason(e_leap_after_leap).
 reason(e_bad_step_leap).
 reason(e_non_unison_end).
+reason(e_non_triad_start).
+
 
 % first species rules for errors
 error(e_parallel_fifths,I) :-
@@ -76,7 +78,14 @@ error(e_non_unison_end,n) :-
 	V1 = 0..voices,
 	V2 = 0..voices.
 
-
+error(e_non_triad_start,0):-
+	note(A,1,0),
+	note(B,2,0),
+	isInterval(A,B,8).
+error(e_non_triad_start,0):-
+	note(A,1,0),
+	note(B,2,0),
+	isInterval(A,B,9).
 
 
 
