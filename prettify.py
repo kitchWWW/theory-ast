@@ -1,10 +1,19 @@
 #script (python)
 import clingo
+import time as ts
+import os
+
 
 model_num = -1
+timestamp = -1
 
 def output(solution):
+	global timestamp
 	global model_num
+	if timestamp == -1:
+		timestamp = str(ts.time())
+		os.mkdir('out/'+timestamp)
+		os.chdir('out/'+timestamp)
 	model_num += 1
 	print("hi")
 	totalTime = 0;
@@ -48,7 +57,7 @@ def lilyPitchFromString(noteNumber):
 		return lilyNoteNames[pitchClass] + ","*(-numberOfTicks)
 
 def outputLilyStrings(lilyStrings,model_num):
-	fd = open('out/out_'+str(model_num)+'.ly','w')
+	fd = open('out_'+str(model_num)+'.ly','w')
 	totalString = ["\\score { \n <<"]
 	for p in lilyStrings[::-1]:
 		totalString.append("\\new Staff \\absolute {")
@@ -58,6 +67,8 @@ def outputLilyStrings(lilyStrings,model_num):
 	fd.write("\n".join(totalString))
 	fd.truncate()
 	fd.close()
+	os.system("lilypond out_"+str(model_num)+" > /dev/null 2>&1  & ")
+
 
 def convertVoicesToLily(voices):
 	ret = []

@@ -1,6 +1,5 @@
 
 % general error reasons
-reason(e_polyphonic_single_voice).
 reason(e_out_of_keyboard_range).
 reason(e_voice_crossing).
 reason(e_too_far_appart).
@@ -9,7 +8,6 @@ reason(e_not_consonant).
 reason(e_not_melodic).
 
 % general error rules
-error(e_polyphonic_single_voice,I) :- note(A,V,I), note(B,V,I), A!=B, I=0..n.
 error(e_out_of_keyboard_range,I) :- note(A,V,I), A<60, I = 0..n .
 error(e_out_of_keyboard_range,I) :- note(A,V,I), A>96, I = 0..n .
 error(e_voice_crossing,I):- note(A,V,I), note(B,V+1,I), A>B, I = 0..n , V=0..voices.
