@@ -1,4 +1,4 @@
-#const n = 10.
+#const n = 8.
 #const voices = 2.
 #const key = 0.
 
@@ -32,7 +32,7 @@ consonant(X,Y) :- pitch(X), pitch(Y), X==Y+4.
 consonant(X,Y) :- pitch(X), pitch(Y), X==Y+7.
 consonant(X,Y) :- pitch(X), pitch(Y), X==Y+8.
 consonant(X,Y) :- pitch(X), pitch(Y), X==Y+9.
-consonant(X,Y) :- pitch(X), pitch(Y), pitch(Z), X == Z+12 , consonant(Z, Y).
+consonant(X,Y) :- pitch(X), pitch(Y), pitch(Z), X == Z+12, Z >= Y , consonant(Z, Y).
 consonant(X,Y) :- consonant(Y,X).
 
 % melodic consonant: step or leap except tritone, 7ths, and <= 1 octave.
@@ -49,35 +49,9 @@ melodic(X,Y) :- pitch(X), pitch(Y), X==Y+12.
 melodic(X,Y) :- melodic(Y,X).
 
 
-% error reasons
-reason(e_polyphonic_single_voice).
-reason(e_out_of_keyboard_range).
-reason(e_voice_crossing).
-reason(e_too_far_appart).
-% reason(e_not_in_scale).
-reason(e_not_consonant).
-reason(e_not_melodic).
 
-% error rules
-error(e_polyphonic_single_voice,I) :- note(A,V,I), note(B,V,I), A!=B, I=0..n.
-error(e_out_of_keyboard_range,I) :- note(A,V,I), A<60, I = 0..n .
-error(e_out_of_keyboard_range,I) :- note(A,V,I), A>96, I = 0..n .
-error(e_voice_crossing,I):- note(A,V,I), note(B,V+1,I), A>B, I = 0..n , V=0..voices.
-error(e_too_far_appart,I):- note(A,V,I), note(B,V+1,I), A+12 < B, I = 0..n , V=0..voices.
-error(e_not_consonant,I) :-
-	note(A,V1,I),
-	note(B,V2,I),
-	V1 < V2,
-	not consonant(A,B),
-	I = 0..n,
-	V1=0..voices,
-	V2=0..voices.
-error(e_not_melodic,I) :-
-	note(A,V,I),
-	note(B,V,I+1),
-	not melodic(A,B),
-	I = 0..n,
-	V = 0..voices.
+
+
 #show note/3.
 
 
