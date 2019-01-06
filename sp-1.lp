@@ -8,7 +8,6 @@ reason(e_bad_step_leap).
 reason(e_non_unison_end).
 reason(e_non_triad_start).
 
-
 % first species rules for errors
 error(e_parallel_fifths,I) :-
 	note(A,V1,I),

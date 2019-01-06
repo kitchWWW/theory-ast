@@ -1,3 +1,5 @@
+#const n = 8.
+#const key = 0.
 
 % cantus firmus
 note(72,1,0).

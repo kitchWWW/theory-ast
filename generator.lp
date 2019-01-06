@@ -1,6 +1,3 @@
-#const n = 8.
-#const voices = 2.
-#const key = 0.
 
 % this rule dissalowws compositional errors
 :- error(R,T), reason(R),T=-1..n.
@@ -19,13 +16,13 @@ voices{note(X,V,I) : pitch(X), voice(V) }voices :- I=0..n.
 
 
 % tools
-% inScale(X) :- pitch(X), X \ 12 == key.
-% inScale(X) :- pitch(X), X \ 12 == key+2.
-% inScale(X) :- pitch(X), X \ 12 == key+4.
-% inScale(X) :- pitch(X), X \ 12 == key+5.
-% inScale(X) :- pitch(X), X \ 12 == key+7.
-% inScale(X) :- pitch(X), X \ 12 == key+9.
-% inScale(X) :- pitch(X), X \ 12 == key+11.
+inScale(X) :- pitch(X), X \ 12 == key.
+inScale(X) :- pitch(X), X \ 12 == key+2.
+inScale(X) :- pitch(X), X \ 12 == key+4.
+inScale(X) :- pitch(X), X \ 12 == key+5.
+inScale(X) :- pitch(X), X \ 12 == key+7.
+inScale(X) :- pitch(X), X \ 12 == key+9.
+inScale(X) :- pitch(X), X \ 12 == key+11.
 
 % harmonic consonant: intervals, at any octave displacement, in any order
 consonant(X,Y) :- pitch(X), pitch(Y), X ==(Y).		
