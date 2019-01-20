@@ -18,8 +18,8 @@ error(e_parallel_fifths,I) :-
 	isInterval(C,D,7),
 	V1 < V2,
 	I = 0..n-1,
-	V1 = 0..voices,
-	V2 = 0..voices.
+	V1 = 1..voices,
+	V2 = 1..voices.
 
 error(e_parallel_octaves,I) :-
 	note(A,V1,I),
@@ -30,8 +30,8 @@ error(e_parallel_octaves,I) :-
 	isInterval(C,D,0),
 	V1 < V2,
 	I = 0..n-1,
-	V1 = 0..voices,
-	V2 = 0..voices.
+	V1 = 1..voices,
+	V2 = 1..voices.
 
 error(e_repetative_notes,I) :-
 	note(A,V,I),
@@ -40,7 +40,7 @@ error(e_repetative_notes,I) :-
 	A == B,
 	B == C,
 	I = 0..n-2,
-	V = 0..voices.
+	V = 1..voices.
 
 error(e_leap_after_leap,I) :-
 	note(A,V,I),
@@ -74,8 +74,8 @@ error(e_non_unison_end,n) :-
 	note(A,V1,n),
 	note(B,V2,n),
 	not isInterval(A,B,0),
-	V1 = 0..voices,
-	V2 = 0..voices.
+	V1 = 1..voices,
+	V2 = 1..voices.
 
 error(e_non_triad_start,0):-
 	note(A,1,0),
