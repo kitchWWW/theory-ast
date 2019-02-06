@@ -1,3 +1,0 @@
-\new Staff \absolute {
-%part
-}
