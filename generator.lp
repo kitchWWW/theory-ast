@@ -3,9 +3,9 @@
 :- error(R,T), reason(R),T=-1..n.
 
 % here is everything that is literally possible.
-pitch(0..127).
+pitch(59..95).
 
-interval(0..127).
+interval(0..36).
 
 % voice 1 is bass, 2 is above bass, 3 is above 2, etc.
 voice(1..voices).

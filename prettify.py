@@ -59,10 +59,16 @@ def lilyPitchFromString(noteNumber):
 def outputLilyStrings(lilyStrings,model_num):
 	fd = open('out_'+str(model_num)+'.ly','w')
 	totalString = ["\\score { \n <<"]
+	i = 0
+	clef = ['\\clef \\treble \n','\\clef \\bass \n']
+	if len(lilyStrings) != 2:
+		clef = ['\\clef \\treble'] * len(lilyStrings)
 	for p in lilyStrings[::-1]:
 		totalString.append("\\new Staff \\absolute {")
+		totalString.append(clef[i])
 		totalString.append(" ".join(p))
 		totalString.append("}")
+		i+=1
 	totalString.append(">>\n \\midi{{}}\n\\layout{{}}\n}")
 	fd.write("\n".join(totalString))
 	fd.truncate()
