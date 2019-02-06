@@ -11,6 +11,7 @@ reason(e_bad_start_stop).
 reason(e_not_step_last_melodic).
 reason(e_bad_last_harmonic).
 reason(e_static_motion).
+reason(e_both_leap).
 
 
 
@@ -26,6 +27,18 @@ error(e_static_motion,I) :-
 	I = 0..n-1,
 	V1 = 1..voices,
 	V2 = 1..voices.
+
+%% error(e_both_leap,I):-
+%% 	note(A,V1,I),
+%% 	note(B,V2,I),
+%% 	note(C,V1,I+1),
+%% 	note(D,V2,I+1),
+%% 	not isStep(A,C),
+%% 	not isStep(B,D),
+%% 	not V1 == V2,
+%% 	I = 0..n-1,
+%% 	V1 = 1..voices,
+%% 	V2 = 1..voices.
 
 
 % first species rules for errors
@@ -114,17 +127,12 @@ error(e_not_step_last_melodic,n-1):-
 	note(B,V,n),
 	not isStep(A,B),
 	V = voices.
-	
+
 
 error(e_non_triad_start,0):-
 	note(A,1,0),
 	note(B,2,0),
-	isInterval(A,B,8).
-error(e_non_triad_start,0):-
-	note(A,1,0),
-	note(B,2,0),
-	isInterval(A,B,9).
-
+	not isMemberOfTriad(B,A,maj).
 
 
 
