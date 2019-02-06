@@ -1,4 +1,4 @@
-#const n = 14.
+#const n = 10.
 #const key = 0.
 
 

@@ -9,10 +9,10 @@ reason(e_not_consonant).
 reason(e_not_melodic).
 
 % general error rules
-error(e_out_of_keyboard_range,I) :- note(A,1,I), A<60, I = 0..n .
-error(e_out_of_keyboard_range,I) :- note(A,1,I), A>72, I = 0..n .
-error(e_out_of_keyboard_range,I) :- note(A,2,I), A<84, I = 0..n .
-error(e_out_of_keyboard_range,I) :- note(A,2,I), A>96, I = 0..n .
+error(e_out_of_keyboard_range,I) :- note(A,1,I), A<55+key, I = 0..n .
+error(e_out_of_keyboard_range,I) :- note(A,1,I), A>72+key, I = 0..n .
+error(e_out_of_keyboard_range,I) :- note(A,2,I), A<79+key, I = 0..n .
+error(e_out_of_keyboard_range,I) :- note(A,2,I), A>96+key, I = 0..n .
 
 
 % don't need these now since we have better ranges

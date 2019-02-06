@@ -9,6 +9,7 @@ reason(e_non_unison_end).
 reason(e_non_triad_start).
 reason(e_bad_start_stop).
 reason(e_not_step_last_melodic).
+reason(e_bad_last_harmonic).
 reason(e_static_motion).
 
 
@@ -113,7 +114,7 @@ error(e_not_step_last_melodic,n-1):-
 	note(B,V,n),
 	not isStep(A,B),
 	V = voices.
-
+	
 
 error(e_non_triad_start,0):-
 	note(A,1,0),

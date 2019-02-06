@@ -3,9 +3,9 @@
 :- error(R,T), reason(R),T=-1..n.
 
 % here is everything that is literally possible.
-pitch(59..95).
+pitch(55+key..96+key).
 
-interval(0..36).
+interval(0..41).
 
 % voice 1 is bass, 2 is above bass, 3 is above 2, etc.
 voice(1..voices).
@@ -49,7 +49,7 @@ melodic(X,Y) :- melodic(Y,X).
 
 isInterval(A,B,X) :- pitch(A), pitch(B), interval(X), (A + X) \ 12 == B \ 12.
 
-isStep(A,B) :- pitch(A), pitch(B), A < B+3, A+3 > B.
+isStep(A,B) :- pitch(A), pitch(B), A < B+3, A+3 > B, not A == B.
 
 
 % most general errors reasons
